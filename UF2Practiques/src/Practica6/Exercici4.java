@@ -10,5 +10,5 @@ package Practica6;
  * @author enric
  */
 public class Exercici4 {
-    
+    //sdads
 }

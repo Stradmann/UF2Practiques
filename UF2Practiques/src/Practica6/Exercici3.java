@@ -32,6 +32,7 @@ public class Exercici3 {
     public static void main(String[] args) {
         // TODO code application logic here
         Scanner scan = new Scanner(System.in);
+        //demanar dades i introduirles
         //validar la dimensio del vector establint un rang dels valors limitats.
         int dim = handy.Validator.readInt("Introdueix la dimensio del vector: ", 1, Integer.MAX_VALUE);
         final int DIM = dim;

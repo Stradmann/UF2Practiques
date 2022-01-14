@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
  /*Escriu una funció anomenada “Maxim” al que se li passa un vector d’enters i
 ha de tornar el més gran dels números que conté el vector.*/
+
 package Practica6;
 
 import java.util.Scanner;
 
-/**
- *
- * @author enric
- */
 public class Exercici3 {
 
     static int Maxim(int v[]) {

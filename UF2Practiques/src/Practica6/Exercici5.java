@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
  /*. Escriu una funció “MCD_Euclides” que retorni el màxim comú divisor de dos
 números segons l’algorisme d’Euclides. Aquest algorisme el podeu trobar
 detallat a https://ca.wikipedia.org/wiki/Algorisme_d%27Euclides */
@@ -11,10 +5,6 @@ package Practica6;
 
 import java.util.Scanner;
 
-/**
- *
- * @author enric
- */
 public class Exercici5 {
 
     /**

@@ -10,5 +10,14 @@ package Practica6;
  * @author enric
  */
 public class Exercici4 {
-    //sdads
+    public static void Dau() {
+        final int MAX = 6, MIN = 1;
+        int numero_aleatori = (int) (Math.random() * (MAX - MIN + 1) + MIN);
+        System.out.println(numero_aleatori);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("Dao llanḉat, el número que ha sortit es: ");
+        Dau();
+    }
 }

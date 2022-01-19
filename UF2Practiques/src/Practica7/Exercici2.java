@@ -249,18 +249,18 @@ public class Exercici2 {
 
         return result;
     }
-    
+
     public static void main(String[] args) {
-        Scanner scan = new Scanner (System.in);
+        Scanner scan = new Scanner(System.in);
         Date data_compra = null;
-        Double preu = LlegirDouble (scan, "Quin preu té el teu producte? ");
+        Double preu = LlegirDouble(scan, "Quin preu té el teu producte? ");
         scan.next();
         System.out.print("Escriu la data en la que vas comprar el producte(no pot ser anterior a 01/01/1986 i la data introduida té que estar en format DD/MM/AAAA): ");
         String string_data_compra = scan.nextLine();
-        PasarDataDate (data_compra, string_data_compra);
+        PasarDataDate(data_compra, string_data_compra);
         System.out.print("Quin tipus d'IVA tens? G (general), R (reduït), S (Superreduït), E (exempt) ");
         String tipus_iva = scan.nextLine();
-        Double preu_final = CalcularIVA (preu, tipus_iva, data_compra);
+        Double preu_final = CalcularIVA(preu, tipus_iva, data_compra);
         System.out.println(preu_final);
     }
 }

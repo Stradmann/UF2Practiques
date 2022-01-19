@@ -50,7 +50,8 @@ public class Exercici2 {
         return preu_final;
     }
 
-    public static void PasarDataDate(Date data, String data_pasar) {
+    public static Date PasarDataDate(String data_pasar) {
+        Date data = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
             data = formatter.parse(data_pasar);
@@ -58,15 +59,16 @@ public class Exercici2 {
             // Ara per ara, no farem res
             System.out.println("La data no és vàlida");
         }
+        return data;
     }
 
     public static int Ordenacio_data(Date data) {
-        final Date PRIMERA_DATA = null;
-        final Date SEGONA_DATA = null;
-        final Date TERCERA_DATA = null;
-        final Date QUARTA_DATA = null;
-        final Date CINQUENA_DATA = null;
-        final Date SISENA_DATA = null;
+        Date PRIMERA_DATA = null;
+        Date SEGONA_DATA = null;
+        Date TERCERA_DATA = null;
+        Date QUARTA_DATA = null;
+        Date CINQUENA_DATA = null;
+        Date SISENA_DATA = null;
         final String DATA_STRING_PRIMERA = "01/01/1986";
         final String DATA_STRING_SEGONA = "01/01/1992";
         final String DATA_STRING_TERCERA = "01/01/1993";
@@ -74,12 +76,12 @@ public class Exercici2 {
         final String DATA_STRING_CINQUENA = "01/01/2010";
         final String DATA_STRING_SISENA = "15/07/2012";
         int ordenacio = 0;
-        PasarDataDate(PRIMERA_DATA, DATA_STRING_PRIMERA);
-        PasarDataDate(SEGONA_DATA, DATA_STRING_SEGONA);
-        PasarDataDate(TERCERA_DATA, DATA_STRING_TERCERA);
-        PasarDataDate(QUARTA_DATA, DATA_STRING_QUARTA);
-        PasarDataDate(CINQUENA_DATA, DATA_STRING_CINQUENA);
-        PasarDataDate(SISENA_DATA, DATA_STRING_SISENA);
+        PRIMERA_DATA = PasarDataDate(DATA_STRING_PRIMERA);
+        SEGONA_DATA = PasarDataDate(DATA_STRING_SEGONA);
+        TERCERA_DATA = PasarDataDate(DATA_STRING_TERCERA);
+        QUARTA_DATA = PasarDataDate(DATA_STRING_QUARTA);
+        CINQUENA_DATA = PasarDataDate(DATA_STRING_CINQUENA);
+        SISENA_DATA = PasarDataDate(DATA_STRING_SISENA);
         if ((data.after(PRIMERA_DATA) || data.equals(PRIMERA_DATA)) && data.before(SEGONA_DATA)) {
             ordenacio = 1;
         } else if ((data.after(SEGONA_DATA) || data.equals(SEGONA_DATA)) && data.before(TERCERA_DATA)) {
@@ -252,15 +254,28 @@ public class Exercici2 {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        Date data_minima_super = null;
+        String data_minima_super_string = "01/01/1993";
+        data_minima_super = PasarDataDate(data_minima_super_string);
         Date data_compra = null;
+        String string_data_compra = "";
+        String tipus_iva = "";
+        boolean correcte = false;
         Double preu = LlegirDouble(scan, "Quin preu té el teu producte? ");
-        scan.next();
+        scan.nextLine();
         System.out.print("Escriu la data en la que vas comprar el producte(no pot ser anterior a 01/01/1986 i la data introduida té que estar en format DD/MM/AAAA): ");
-        String string_data_compra = scan.nextLine();
-        PasarDataDate(data_compra, string_data_compra);
-        System.out.print("Quin tipus d'IVA tens? G (general), R (reduït), S (Superreduït), E (exempt) ");
-        String tipus_iva = scan.nextLine();
+        string_data_compra = scan.nextLine();
+        data_compra = PasarDataDate(string_data_compra);
+        if (data_compra.before(data_minima_super)) {
+            do {
+                System.out.print("Quin tipus d'IVA tens? G (general), R (reduït), E (exempt) ");
+                tipus_iva = scan.nextLine();
+            } while (tipus_iva.equals("S") || tipus_iva.equals("s"));
+        } else {
+            System.out.print("Quin tipus d'IVA tens? G (general), R (reduït), S (Superreduït), E (exempt) ");
+            tipus_iva = scan.nextLine();
+        }
         Double preu_final = CalcularIVA(preu, tipus_iva, data_compra);
-        System.out.println(preu_final);
+        System.out.println("El preu final del teu producte aplicant l'IVA es de " + preu_final + "€.");
     }
 }

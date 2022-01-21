@@ -55,6 +55,15 @@ public class Validator {
         return result;
     }
     
+    public static int readInt(int minimum, int maximum){
+        int result;
+        do{
+            result = readInt();
+        }while(result < minimum || result > maximum);
+        
+        return result;
+    }
+    
     //FUNCIO READFLOAT
     public static float readFloat(String request) {
         Scanner scan = openScan();

@@ -31,20 +31,20 @@ d) Escriu el programa que demani el tamany del tauler i, a continuació, vagi
 demanant alternativament el torn dels jugadors fins que algú aconsegueixi fer
 quatre en ratlla o bé s’hagi omplert el tauler. Un cop acabi, que demani si es
 vol fer una altra partida o bé es vol finalitzar el programa.
-*/
+ */
 package Practica8;
 
 public class Exercici1 {
-           
+
     static int[][] board;
-    
-    public static void main(String[] args){
-        
+
+    public static void main(String[] args) {
+
         boolean endProgram = false;
-        
-        do{
+
+        do {
             int option = showMenu();
-            switch(option){
+            switch (option) {
                 case 0:
                     endProgram = true;
                     break;
@@ -55,32 +55,85 @@ public class Exercici1 {
                     playGame();
                     break;
             }
-        }while(!endProgram);
-        
-        
+        } while (!endProgram);
+
     }
-    
-    public static int showMenu(){
-        
+
+    public static int showMenu() {
+
         int option;
-        
+
         System.out.println("(1)Definir tamany de tauler");
         System.out.println("(2)Jugar amb taulell definit; per defecte 6*7");
         System.out.println("(0)Sortir");
-        
+
         option = handy.Validator.readInt(0, 2);
         return option;
     }
-    
-    public static int[][] boardDefinition(){
+
+    public static int[][] boardDefinition() {
         int rows = handy.Validator.readInt("Introdueix el numero de files:");
         int columns = handy.Validator.readInt("Introdueix el numero de columnes");
-        
+
         int[][] result = new int[rows][columns];
         return result;
     }
+
+    public static void playGame() {
+
+        boolean gameOver = false;
+        boolean player1Turn = true;
+
+        initializeBoard();
+        while (!gameOver) {
+            if (player1Turn) {
+                playMove(1);
+            } else {
+                playMove(2);
+            }
+            gameOver = checkEndGame();
+            player1Turn = !player1Turn;
+        }
+    }
+
+    public static void initializeBoard() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                board[i][j] = 0;
+            }
+        }
+    }
+
+    public static void playMove(int player) {
+
+    }
+
+    public static boolean checkEndGame() {
+
+        boolean result;
+
+        boolean winGame = inLine();
+        boolean availablePosition = false;
+        if (!winGame) {
+            for (int i = 0; i < board.length && !availablePosition; i++) {
+                for (int j = 0; j < board[i].length && !availablePosition; j++) {
+                    if (board[i][j] == 0) {
+                        availablePosition = true;
+                    }
+                }
+            }
+        }
+
+        if (winGame | !availablePosition) {
+            result = true;
+        } else {
+            result = false;
+        }
+
+        return result;
+    }
     
-    public static void playGame(){
+    public static boolean inLine(){
         
     }
 }

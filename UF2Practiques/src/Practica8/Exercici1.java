@@ -91,6 +91,7 @@ public class Exercici1 {
             } else {
                 playMove(2);
             }
+            printScreen();
             gameOver = checkEndGame();
             player1Turn = !player1Turn;
         }
@@ -135,5 +136,14 @@ public class Exercici1 {
     
     public static boolean inLine(){
         
+    }
+    
+    public static void printScreen(){
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                System.out.print(board[i][j]);
+            }
+            System.out.println("");
+        }
     }
 }

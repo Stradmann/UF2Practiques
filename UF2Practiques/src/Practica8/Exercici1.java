@@ -37,6 +37,8 @@ package Practica8;
 public class Exercici1 {
 
     static int[][] board;
+    static int lastRowPlayed, lastColumnPlayed;
+    static int winner = -1;
 
     public static void main(String[] args) {
 
@@ -64,7 +66,7 @@ public class Exercici1 {
         int option;
 
         System.out.println("(1)Definir tamany de tauler");
-        System.out.println("(2)Jugar amb taulell definit; per defecte 6*7");
+        System.out.println("(2)Jugar amb taulell definit");
         System.out.println("(0)Sortir");
 
         option = handy.Validator.readInt(0, 2);
@@ -86,6 +88,7 @@ public class Exercici1 {
         int jugada_realitzada_jugador1 = 0, jugada_realitzada_jugador2 = 0;
 
         initializeBoard();
+        printScreen();
         while (!gameOver) {
             if (player1Turn) {
                 do {
@@ -104,7 +107,15 @@ public class Exercici1 {
             }
             printScreen();
             gameOver = checkEndGame();
-            player1Turn = !player1Turn;
+            if(gameOver){
+                if(winner != -1)
+                    System.out.println("Ha guanyat el jugador " + winner + " !!");
+                else
+                    System.out.println("Ha estat un empat");
+            }else{
+                player1Turn = !player1Turn;
+            }
+            
         }
     }
 
@@ -117,12 +128,13 @@ public class Exercici1 {
     }
 
     public static int playMove(int player) {
+
         int fila = 0;
+
         System.out.println("Es el torn del jugador " + player + ":");
         int columna = handy.Validator.readInt("En quina columna vols ficar la teva fitxa?", 1, board[0].length);
-        if (columna == 1 || columna == board[0].length) {
-            columna--;
-        }
+        columna--;
+
         boolean ficar_fitxa = false;
         for (int i = board.length - 1; i > 0 && !ficar_fitxa; i--) {
             if (board[i][columna] == 0) {
@@ -133,6 +145,9 @@ public class Exercici1 {
         }
         if (!ficar_fitxa) {
             fila = -1;
+        } else {
+            lastRowPlayed = fila;
+            lastColumnPlayed = columna;
         }
         return fila;
     }
@@ -163,7 +178,71 @@ public class Exercici1 {
     }
 
     public static boolean inLine() {
-        return true;
+
+        boolean result;
+        int player = board[lastRowPlayed][lastColumnPlayed];
+        boolean endCountingSide;
+        int countLine;
+
+        //Comprovem la vertical : i+ j, i- j
+        endCountingSide = false;
+        countLine = 1;
+        for (int i = lastRowPlayed + 1;
+                i < lastRowPlayed + 4 && i < board.length && !endCountingSide && countLine < 4;
+                i++) {
+            if (board[i][lastColumnPlayed] == player) {
+                countLine++;
+            } else {
+                endCountingSide = true;
+            }
+        }
+        endCountingSide = false;
+        for (int i = lastRowPlayed - 1;
+                i > lastRowPlayed - 4 && i >= 0 && !endCountingSide && countLine < 4;
+                i--) {
+            if (board[i][lastColumnPlayed] == player) {
+                countLine++;
+            } else {
+                endCountingSide = true;
+            }
+        }
+
+        if (countLine == 4) {
+            result = true;
+        } else {
+            //Comprovem la horitzontal: i j+, i j-
+            countLine = 1;
+            endCountingSide = false;
+            for (int j = lastColumnPlayed + 1;
+                    j < lastColumnPlayed + 4 && j < board[lastRowPlayed].length && !endCountingSide && countLine < 4;
+                    j++) {
+                if (board[lastRowPlayed][j] == player) {
+                    countLine++;
+                } else {
+                    endCountingSide = true;
+                }
+            }
+            endCountingSide = false;
+            for (int j = lastColumnPlayed - 1;
+                    j > lastColumnPlayed - 4 && j >= 0 && !endCountingSide && countLine < 4;
+                    j--) {
+                if (board[lastRowPlayed][j] == player) {
+                    countLine++;
+                } else {
+                    endCountingSide = true;
+                }
+            }
+        }
+        
+        if (countLine == 4)
+            result = true;
+        else
+            result = false;
+        
+        if (result == true)
+            winner = player;
+        
+        return result;
     }
 
     public static void printScreen() {

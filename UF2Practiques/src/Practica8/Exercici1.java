@@ -83,13 +83,24 @@ public class Exercici1 {
 
         boolean gameOver = false;
         boolean player1Turn = true;
+        int jugada_realitzada_jugador1 = 0, jugada_realitzada_jugador2 = 0;
 
         initializeBoard();
         while (!gameOver) {
             if (player1Turn) {
-                playMove(1);
+                do {
+                    jugada_realitzada_jugador1 = playMove(1);
+                    if (jugada_realitzada_jugador1 == -1) {
+                        System.out.print("No s'ha pogut realitzar la jugada, torna a intentar-ho.");
+                    }
+                } while (jugada_realitzada_jugador1 == -1);
             } else {
-                playMove(2);
+                do {
+                    jugada_realitzada_jugador2 = playMove(2);
+                    if (jugada_realitzada_jugador2 == -1) {
+                        System.out.print("No s'ha pogut realitzar la jugada, torna a intentar-ho.");
+                    }
+                } while (jugada_realitzada_jugador2 == -1);
             }
             printScreen();
             gameOver = checkEndGame();
@@ -105,8 +116,25 @@ public class Exercici1 {
         }
     }
 
-    public static void playMove(int player) {
-
+    public static int playMove(int player) {
+        int fila = 0;
+        System.out.println("Es el torn del jugador " + player + ":");
+        int columna = handy.Validator.readInt("En quina columna vols ficar la teva fitxa?", 1, board[0].length);
+        if (columna == 1 || columna == board[0].length) {
+            columna--;
+        }
+        boolean ficar_fitxa = false;
+        for (int i = board.length - 1; i > 0 && !ficar_fitxa; i--) {
+            if (board[i][columna] == 0) {
+                board[i][columna] = player;
+                fila = i;
+                ficar_fitxa = true;
+            }
+        }
+        if (!ficar_fitxa) {
+            fila = -1;
+        }
+        return fila;
     }
 
     public static boolean checkEndGame() {
@@ -133,14 +161,14 @@ public class Exercici1 {
 
         return result;
     }
-    
-    public static boolean inLine(){
-        
+
+    public static boolean inLine() {
+        return true;
     }
-    
-    public static void printScreen(){
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[i].length; j++){
+
+    public static void printScreen() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
                 System.out.print(board[i][j]);
             }
             System.out.println("");

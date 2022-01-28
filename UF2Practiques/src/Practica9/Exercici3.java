@@ -36,4 +36,24 @@ public class Exercici3 {
         
         return result;
     }
+    
+    public static boolean isEven(int x){
+        boolean result;
+        if(x == 0){
+            result = true;
+        }else{
+            result = isOdd(x-1);
+        }
+        return result;
+    }
+    
+    public static boolean isOdd(int x){
+        boolean result;
+        if(x == 0){
+            result = false;
+        }else{
+            result = isEven(x-1);
+        }
+        return result;
+    }
 }

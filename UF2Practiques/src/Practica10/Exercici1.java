@@ -39,8 +39,9 @@ import java.util.Random;
 
 public class Exercici1 {
 
-    final public static int PIECE_TYPES_COUNT = 6;
+    final public static int PIECE_TYPES_COUNT = 7;
     private static long lastTime = System.currentTimeMillis();
+    public static int points = 0;
     public static void main(String[] args) {
 
         boolean endGame = false;
@@ -72,9 +73,11 @@ public class Exercici1 {
                 handy.ArrayManager.initializeToZero(pointerCoords);
                 handy.ArrayManager.copyArray(pointerCoords, auxCoordOrigin);
                 posture = 0;
+                currentPiece.showPiece(posture);
+                auxCoordOrigin[0] = handy.Validator.readInt("Introdueix la columna on vols tirar la peça:", 1, b.currentBoard[0].length - currentPiece.findMaxX(posture)) - 1;
             }
 
-            if (isDeltaTimeEquals(500)) {
+            if (isDeltaTimeEquals(300)) {
 
                 //comprovem la localitzacio de la peça
                 Piece.Situation currSit = currentPiece.checkNextLocation(b.currentBoard, auxCoordOrigin, 0);
@@ -88,6 +91,8 @@ public class Exercici1 {
                     case OCCUPIED:
                         currentPiece.drawPiece(b.currentBoard, pointerCoords, posture, 'X');
                         currentPiece = null;
+                        endGame = b.checkEndgame();
+                        b.checkLine();
                         break;
 
                     case OUT_OF_BOUNDS:
@@ -97,6 +102,7 @@ public class Exercici1 {
                     case ON_FIELD:
                         currentPiece.drawPiece(b.currentBoard, pointerCoords, posture, 'X');
                         currentPiece = null;
+                        b.checkLine();
                         break;
                 }
                 //imprimirBoard
@@ -104,9 +110,13 @@ public class Exercici1 {
                 if(currSit == currSit.AVAILABLE || currSit == currSit.OUT_OF_BOUNDS){
                     currentPiece.drawPiece(b.currentBoard, pointerCoords, posture, ' ');//fer el clean piece
                     auxCoordOrigin[1]++;
-                } 
+                }
+                
             }
         } while (!endGame);
+        
+        System.out.println("GAME OVER");
+        System.out.println("Puntuacio: " + points);
     }
 
     public static Piece createNewPiece() {
@@ -132,13 +142,14 @@ public class Exercici1 {
             case 5:
                 currentPiece = new Piece(Piece.PieceForm.Z_R);
                 break;
+            case 6:
+                currentPiece = new Piece(Piece.PieceForm.SEMICROSS);
+                break;
             default:
                 currentPiece = null;
         }
         return currentPiece;
     }
-
-    
 
     public static boolean isDeltaTimeEquals(int delta) {
         long time = System.currentTimeMillis();
@@ -148,18 +159,5 @@ public class Exercici1 {
             return true;
         }
         return false;
-    }
-
-    public static void tutorial() {
-        //tutorial. a d esq dret espai girar s caiguda
-        System.out.println("\n\"a\" moure a l'esquerra");
-        System.out.println("\"d\" moure a la dreta");
-        System.out.println("\"s\" caiguda lliure");
-        System.out.println("\"Espai\" girar la peça\n");
-        try {
-            Thread.sleep(4000);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 }

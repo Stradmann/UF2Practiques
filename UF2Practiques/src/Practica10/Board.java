@@ -50,4 +50,64 @@ public class Board {
             }
         }
     }
+    
+    public boolean checkEndgame(){
+        boolean result = false;
+        for(int i = 0; i < SUPMARGIN; i++){
+            for(int j = 0; j < this.currentBoard[i].length; j++){
+                if(this.currentBoard[i][j] == 'X'){
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+    
+    public void checkLine(){
+        int result;
+        
+        for(int i = 0; i < this.currentBoard.length; i++){
+            boolean allX = true;
+            for(int j = 0; j < this.currentBoard[i].length && allX; j++){
+                if(this.currentBoard[i][j] != 'X'){
+                    allX = false;
+                }
+            }
+            if(allX){
+                Exercici1.points += 50;
+                cleanLine(i);
+            }
+        }
+    }
+    
+    public void cleanLine(int i){
+        for(int j = 0; j < this.currentBoard[i].length; j++){
+            this.currentBoard[i][j] = ' ';
+        }
+        printBoard();
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        for(int j = 0; j < this.currentBoard[i].length; j++){
+            this.currentBoard[i][j] = '*';
+        }
+        printBoard();
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        dropRest(i);
+        printBoard();
+    }
+    
+    public void dropRest(int row){
+        for(int i = row; i > 0; i--){
+            for(int j = 0; j < this.currentBoard[i].length; j++){
+                currentBoard[i][j] = currentBoard[i-1][j];
+            }
+        }
+    }
 }

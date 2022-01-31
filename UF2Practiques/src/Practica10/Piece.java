@@ -12,7 +12,8 @@ public class Piece {
         L_L(2, 4),
         L_R(3, 4),
         Z_L(4, 2),
-        Z_R(5, 2);
+        Z_R(5, 2),
+        SEMICROSS(6, 4);
 
         int pieceNumber;
         int positionsCount;
@@ -79,6 +80,15 @@ public class Piece {
                 
                 createCoords(coordsZ_R);
                 break;
+                
+            case SEMICROSS:
+                int[] coordsSC = {0, 1, 1, 0, 1, 1, 2, 1, //POSICIO DRETA
+                    0, 0, 0, 1, 1, 1, 0, 2, //POSICIO AMUNT
+                    0, 0, 1, 0, 1, 1, 2, 0, //POSICIO ESQUERRA
+                    1, 0, 0, 1, 1, 1, 1, 2}; //POSICIO AVALL
+
+                createCoords(coordsSC);
+                break;
         }
     }
 
@@ -92,6 +102,39 @@ public class Piece {
                     coordI++;
                 }
             }
+        }
+    }
+    
+    public int findMaxX(int posture){
+        int result = 0;
+        for (int i = 0; i < positions[posture].length; i++) {
+            for (int j = 0; j < positions[posture][i].length; j++) {
+                if (j == 1) {
+                    int cY = positions[posture][i][j];
+                }
+            }
+        }
+        return result;
+    }
+    
+    public void showPiece(int posture){
+        char[][] panel = new char[4][4];
+        for(int i = 0; i < panel.length; i++){
+            for(int j = 0; j < panel[i].length; j++){
+                panel[i][j] = ' ';
+            }
+        }
+        int[] origin = {0, 0};
+        drawPiece(panel, origin, posture, 'O');
+        printPieceOverview(panel);
+    }
+    
+    public void printPieceOverview(char[][] panel){
+        for(int i = 0; i < panel.length; i++){
+            for(int j = 0; j < panel[i].length; j++){
+                    System.out.print(panel[i][j]);
+            }
+            System.out.print("\n");
         }
     }
 

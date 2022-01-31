@@ -11,8 +11,8 @@ public class Piece {
         LINE(1, 2),
         L_L(2, 4),
         L_R(3, 4),
-        Z_L(4, 4),
-        Z_R(5, 4);
+        Z_L(4, 2),
+        Z_R(5, 2);
 
         int pieceNumber;
         int positionsCount;
@@ -49,7 +49,12 @@ public class Piece {
                 break;
 
             case L_L:
-
+                int[] coordsL_L = {1, 0, 1, 1, 0, 2, 1, 2,
+                    0, 0, 0, 1, 1, 1, 2, 1,
+                    0, 0, 1, 0, 0, 1, 0, 2,
+                    0, 0, 1, 0, 2, 0, 2, 1};
+                
+                createCoords(coordsL_L);
                 break;
 
             case L_R:
@@ -62,11 +67,17 @@ public class Piece {
                 break;
 
             case Z_L:
-
+                int[] coordsZ_L = {1, 0, 2, 0, 0, 1, 1, 1,
+                    0, 0, 0, 1, 1, 1, 1, 2};
+                
+                createCoords(coordsZ_L);
                 break;
 
             case Z_R:
-
+                int[] coordsZ_R = {0, 0, 1, 0, 1, 1, 2, 1,
+                    1, 0, 0, 1, 1, 1, 0, 2};
+                
+                createCoords(coordsZ_R);
                 break;
         }
     }

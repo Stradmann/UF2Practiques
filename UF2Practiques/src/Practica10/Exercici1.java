@@ -39,7 +39,7 @@ import java.util.Random;
 
 public class Exercici1 {
 
-    final public static int PIECE_TYPES_COUNT = 2;
+    final public static int PIECE_TYPES_COUNT = 6;
     private static long lastTime = System.currentTimeMillis();
     public static void main(String[] args) {
 
